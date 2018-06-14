@@ -1,33 +1,66 @@
 <?php
 /**
  * phpVirtualBox example configuration.
- * @version $Id: config.php-example 452 2012-10-17 12:22:12Z imooreyahoo@gmail.com $
+ * @version $Id: config.php-example 585 2015-04-04 11:39:31Z imoore76 $
  *
  * rename to config.php and edit as needed.
  *
  */
 class phpVBoxConfig {
 
-	function __construct() {
-		$this->username = getenv('VBOX_USERNAME');
-		$this->password = getenv('VBOX_PASSWORD');
-		$this->location = getenv('VBOX_LOCATION');
-	}
-
+/* Username / Password for system user that runs VirtualBox */
 var $username = null;
 var $password = null;
+
+/* SOAP URL of vboxwebsrv (not phpVirtualBox's URL) */
 var $location = null;
 
+function __construct() {
+	$this->username = getenv('VBOX_USERNAME');
+	$this->password = getenv('VBOX_PASSWORD');
+	$this->location = getenv('VBOX_LOCATION');
+}
+
+/* Default language. See languages folder for more language options.
+ * Can also be changed in File -> Preferences -> Language in
+ * phpVirtualBox.
+ */
 var $language = 'en';
 
 /* Set the standard VRDE Port Number / Range, e.g. 1010-1020 or 1027 */
 var $vrdeports = '9000-9100';
+/* Set the default VRDE address, e.g. 192.168.1.1 */
+#var $vrdeaddress = '192.168.1.1';
+
+/*
+ *
+ * Not-so-common options / tweaking
+ *
+ */
+
+// Multiple servers example config. Uncomment (remove /* and */) to use.
+// Add ALL the servers you want to use. Even if you have the server set
+// above. The default server will be the first one in the list.
+/*
+var $servers = array(
+        array(
+                'name' => 'London',
+                'username' => 'user',
+                'password' => 'pass',
+                'location' => 'http://192.168.1.1:18083/',
+                'authMaster' => true // Use this server for authentication
+        ),
+        array(
+                'name' => 'New York',
+                'username' => 'user2',
+                'password' => 'pass2',
+                'location' => 'http://192.168.1.2:18083/'
+        ),
+);
+*/
 
 // Disable authentication
 var $noAuth = false;
-
-// Increased timeout is needed for large amount of virtual machines
-var $eventListenerTimeout = 500;
 
 // Host / ip to use for console connections
 #var $consoleHost = '192.168.1.40';
@@ -156,7 +189,7 @@ var $nicMax = 4;
 #var $startStopConfig = true;
 
 // Authentication library.
-var $authLib = 'Builtin';
+// var $authLib = 'Builtin';
 
 // VM ownership
 #var $enforceVMOwnership = true;
@@ -186,6 +219,11 @@ LPT support may or may not work for you.
 */
 #var $enableHDFlushConfig = true;
 
+/*
+ * Event listener timeout in seconds. This is an advanced option that most people will
+ * probably not need to change.
+ */
+var $eventListenerTimeout = 500;
 
 /* END SETTINGS  */
 
